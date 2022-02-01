@@ -1,0 +1,62 @@
+Data Cleaning.ipynb
+1. Loading Columns with Mixed data types
+    - These columns need to be converted to datatype category
+    OFN_LABEL        object
+    INC_RELATEDTO    object
+    conform          object
+    OFF_CRIMEFREE    object
+    DOB2             object
+    MS_OFFBODY       object
+    MS_SENTJP        object
+    JP_CC_BUG        object
+    ofn_label        object
+
+2. Replacement of Categorical Variables with numeric values
+    -We can take out this step entirely     
+
+3. Missing Values Analysis. There are several variables that are problematic due to a large percentage of missing values 
+
+    PCS_OFF_ID (PCS created ID variable for each unique person) is missing for 34%  of the rows
+
+    ofn_label (description of the offense)		89.664702 % of the rows have Missing Values
+    OFF_CRIMEFREE 88.48% (Offender crime free between 18 and 28 years of age (Used for determining lapsing for PRS.))
+    OFF_AGE 69.12 %(Offender age (years) (Entered by county, if DOB is unavailable.)
+
+    Couple of really important variables related to Incaceration is missing 
+    INC_END	1466176	56.529752
+	INC_START	1466176	56.529752
+	INC_TYPE	1465901	56.519149
+
+PCS created ID variable for each unique person (PCS_OFF_ID)
+PCS_OFF_ID	899300	34.673331
+
+4. OFN_LABEL vs ofn_label
+There are some rows missing in OFN_LABEL vs some rows in ofn_label, and these two rows will need to be combined to create a single offense label
+
+
+5. Need to Remove or account for Murder Charges in the Dataset 
+There are Judicial Preceding that correspond to H-1=Murder 1;
+H-2=Murder 2 charges. We need to decide on how to account for these 
+
+6. Issue with Imputing SGR_LEVEL (Sentencing guideline level)
+    -Need to explore further what '~' means before replacing it as missing
+
+7. Date Related Issues 
+    - How to Account for Errenous Date Values - the max date values
+    df[['INC_START','dob','INC_START','IP_END','dos','dof']].max()
+    INC_START   2071-12-28
+    dob         2071-12-31
+    INC_START   2071-12-28
+    IP_END      2060-01-01
+    dos         2019-12-31
+    dof         2020-05-08
+    dtype: datetime64[ns]
+    - Issues with DOB
+    e.g 
+    JPO_ID	dob
+	938145	2063-07-24
+	971901	2064-01-24
+	870391	2060-09-13
+
+
+    
